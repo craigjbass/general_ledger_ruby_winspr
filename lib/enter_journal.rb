@@ -8,9 +8,20 @@ class EnterJournal
 
   def execute(debits:, credits:, date:)
     entries = [
-      Journal::Entry.new(account_code: debits[0][:account_code], amount: debits[0][:amount]),
-      Journal::Entry.new(account_code: credits[0][:account_code], amount: credits[0][:amount], type: :credit)
-    ]
+      debits.map do |debit|
+        Journal::Entry.new(
+          account_code: debit[:account_code], 
+          amount: debit[:amount]
+        )
+      end,
+      credits.map do |credit|
+        Journal::Entry.new(
+          account_code: credit[:account_code], 
+          amount: credit[:amount], 
+          type: :credit
+        )
+      end
+  ].flatten
 
     journal = Journal.new(
       date: Date.parse(date),
