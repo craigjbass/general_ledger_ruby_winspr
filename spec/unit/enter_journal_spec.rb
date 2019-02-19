@@ -51,8 +51,22 @@ describe EnterJournal do
     expect_date_to_be(Date.parse('2021-06-03'))
     expect(journal_entries[0].amount).to eq(86)
     expect(journal_entries[0].account_code).to eq('7001001')
-
+    expect(journal_entries[0].debit?).to eq(true)
+    expect(journal_entries[1].credit?).to eq(true)
     expect(journal_entries[1].amount).to eq(86)
     expect(journal_entries[1].account_code).to eq('7002002')
+  end
+
+  it 'can respond with id' do
+    response = enter_journal.execute(
+      date: '2021/06/03',
+      debits: [
+        { account_code: '7001001', amount: 86 }
+      ],
+      credits: [
+        { account_code: '7002002', amount: 86 }
+      ]
+    )
+    expect(response).to eq({id:nil})
   end
 end

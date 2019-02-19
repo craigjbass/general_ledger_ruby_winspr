@@ -4,9 +4,12 @@ require 'view_journal'
 describe 'general ledger' do
   class InMemoryJournalGateway
     def save(journal)
-
+      @journal = journal
     end
 
+    def fetch_journal
+      @journal
+    end
   end
 
   it 'can view a single journal' do

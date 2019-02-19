@@ -13,13 +13,22 @@ class Journal
   end
 
   class Entry
-    def initialize(account_code:, amount:)
+    def initialize(account_code:, amount:, type: :debit)
       @account_code = account_code
       @amount = amount
+      @type = type
     end
 
     def amount
       @amount
+    end
+    
+    def credit?
+      @type == :credit
+    end
+
+    def debit?
+      @type == :debit
     end
 
     def account_code

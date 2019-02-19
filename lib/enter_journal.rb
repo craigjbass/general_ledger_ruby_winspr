@@ -9,7 +9,7 @@ class EnterJournal
   def execute(debits:, credits:, date:)
     entries = [
       Journal::Entry.new(account_code: debits[0][:account_code], amount: debits[0][:amount]),
-      Journal::Entry.new(account_code: credits[0][:account_code], amount: credits[0][:amount])
+      Journal::Entry.new(account_code: credits[0][:account_code], amount: credits[0][:amount], type: :credit)
     ]
 
     journal = Journal.new(
@@ -18,6 +18,6 @@ class EnterJournal
     )
 
     @journal_gateway.save(journal)
-    nil
+    {id:nil}
   end
 end
