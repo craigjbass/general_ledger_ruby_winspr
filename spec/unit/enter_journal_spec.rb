@@ -29,6 +29,10 @@ describe EnterJournal do
     expect(journal_entries[entry_number].debit?).to eq(true)
   end
 
+  def journal_entry_is_credit(entry_number)
+    expect(journal_entries[entry_number].credit?).to eq(true)
+  end
+
   it 'can save a journal' do
     enter_journal.execute(
       date: '2019/02/02',
@@ -64,7 +68,7 @@ describe EnterJournal do
     journal_entry_amount_is(86, 0)
     journal_entry_account_code_is('7001001', 0)
     journal_entry_is_debit(0)
-    expect(journal_entries[1].credit?).to eq(true)
+    journal_entry_is_credit(1)
     journal_entry_amount_is(86,1)
     journal_entry_account_code_is('7002002', 1)
   end
@@ -101,7 +105,7 @@ describe EnterJournal do
     journal_entry_amount_is(43, 1)
     journal_entry_account_code_is('7001009', 1)
     journal_entry_is_debit(1)
-    expect(journal_entries[2].credit?).to eq(true)
+    journal_entry_is_credit(2)
     journal_entry_amount_is(86, 2)
   end
 
@@ -123,8 +127,8 @@ describe EnterJournal do
     journal_entry_is_debit(0)
     journal_entry_amount_is(72, 1)
     journal_entry_account_code_is('7002002', 1)
-    expect(journal_entries[1].credit?).to eq(true)
-    expect(journal_entries[2].credit?).to eq(true)
+    journal_entry_is_credit(1)
+    journal_entry_is_credit(2)
     journal_entry_amount_is(72, 2)
     journal_entry_account_code_is('7002009', 2)
   end
